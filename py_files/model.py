@@ -38,7 +38,7 @@ def train_model_ts(model,
                         shuffle=False, epochs=epochs,
                         batch_size=batch_size,
                         validation_data=(x_val, y_val),
-                        # callbacks=[es], 
+                        callbacks=[es], 
                         verbose=1)
     return history
     

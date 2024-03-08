@@ -27,7 +27,7 @@ data.columns = ['amount']
 data['amount'] = data['amount'].astype(float)
 
 # generate missing index
-full_index = pd.date_range(start=data.index.min(), end=data.index.max(), freq='H')
+full_index = pd.date_range(start=data.index.min(), end=data.index.max(), freq='h')
 data = data.reindex(full_index)
 data['amount'] = data['amount'].bfill()
 
