@@ -3,7 +3,7 @@ import keras
 import argparse
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
-from model import *
+from new.model import *
 from utils import *
 
 # argv
