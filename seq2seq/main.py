@@ -3,19 +3,23 @@ from train import train
 from preprocess import Data
 from plot import *
 
+time = "min_10"
+place = "p040"
+time_step = 6
+
 # preprocessing data
-data = Data()
+data = Data(time=time, place=place)
 original_data = data.load()
 plot_data(original_data)
 original_data = data.interpolate()
 plot_data(original_data)
 data.normalize()
-data.truncate()
+data.truncate(time_step=time_step)
 truncated_data, train_size, test_size = data.split()
 print(original_data["datetime"][train_size:])
 
 # build model
-model = Seq2Seq()
+model = Seq2Seq(time_step=time_step)
 seq2seq = model.build()
 
 # train model
