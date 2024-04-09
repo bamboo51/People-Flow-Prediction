@@ -13,10 +13,13 @@ class Data:
     def load(self):
         self.data = pd.read_csv(f"../data/num_file/{self.time}/{self.place}.csv")
         self.data.loc[self.data["count"]==0, "count"] = np.NaN
-        # self.data["count"] = self.data["count"].interpolate(method="linear")
-        self.data["count"] = self.data["count"].fillna(method="ffill")
         self.data["datetime"] = pd.to_datetime(self.data["datetime"], format="%Y-%m-%d %H:%M:%S")
         print(self.data)
+        return self.data
+    
+    def interpolate(self):
+        # self.data["count"] = self.data["count"].interpolate(method="linear")
+        self.data["count"] = self.data["count"].ffill()
         return self.data
 
     def normalize(self):
@@ -51,4 +54,4 @@ class Data:
         print(f"train:{self.encode_input_train.shape}, test:{self.encode_input_test.shape}")
         return {"ei_train": self.encode_input_train, "ei_test": self.encode_input_test, 
                 "di_train":self.decode_input_train, "di_test": self.decode_input_test, 
-                "do_train": self.decode_output_train, "do_test":self.decode_output_test}
+                "do_train": self.decode_output_train, "do_test":self.decode_output_test}, self.encode_input_train.shape[0], self.encode_input_test.shape[0]
