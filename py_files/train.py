@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 from utils import *
-from new.model import *
 import argparse
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from joblib import dump
+from model import create_model, train_model_ts
 
 # argv
 parser = argparse.ArgumentParser()
@@ -15,7 +16,7 @@ args = parser.parse_args()
 # read data
 place = args.place
 print(f'training at {place}')
-path = f'./num_file/{place}.csv'
+path = f'../data/num_file/hrs_1_old/{place}.csv'
 data = pd.read_csv(path)
 print(f'read data...shape={data.shape}')
 
@@ -35,6 +36,7 @@ data['amount'] = data['amount'].bfill()
 index = data.index
 scaler = StandardScaler()
 scaler.fit(data)
+dump(scaler, f'./param/scaler_{place}.joblib')
 data = scaler.transform(data)
 data = pd.DataFrame(data)
 data.set_index(index, inplace=True)

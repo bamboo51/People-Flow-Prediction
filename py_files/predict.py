@@ -2,8 +2,8 @@ import numpy as np
 import keras
 import argparse
 from sklearn.preprocessing import StandardScaler
+from joblib import load
 import pandas as pd
-from new.model import *
 from utils import *
 
 # argv
@@ -34,8 +34,7 @@ data['amount'] = data['amount'].bfill()
 
 # normalize data
 index = data.index
-scaler = StandardScaler()
-scaler.fit(data)
+scaler = load(f'./param/scaler_p040.joblib')
 data = scaler.transform(data)
 data = pd.DataFrame(data)
 data.set_index(index, inplace=True)
