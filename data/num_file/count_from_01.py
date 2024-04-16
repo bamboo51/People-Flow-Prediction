@@ -11,11 +11,11 @@ for filename in sorted(os.listdir(directory)):
         
         df['datetime'] = pd.to_datetime(df['datetime'])
         df.set_index('datetime', inplace=True)
-        result = df.resample('1h').sum()
+        result = df.resample('30min').sum()
         print(result)
         
         output_filename = os.path.splitext(filename)[0]
         print(output_filename)
-        output_path = os.path.join('./hrs_01/', output_filename+'.csv')
+        output_path = os.path.join('./min_30/', output_filename+'.csv')
         result.to_csv(output_path)
         
