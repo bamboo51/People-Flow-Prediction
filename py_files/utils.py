@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
 
 plt.rcParams['figure.figsize'] = (12, 8)
 
@@ -35,6 +36,6 @@ def plot_forecast(y_test, predict, index, history, eval_hist, file_name):
 def plot_error(y_test, predict, index, file_name):
     plt.plot(index, y_test-predict)
     plt.grid(True)
-    plt.title('Error, MAE={:.4f}'.format(np.mean(np.abs(y_test-predict))))
+    plt.title(f'Error MAE={mean_absolute_error(y_test, predict):.2f} MAPE={mean_absolute_percentage_error(y_test, predict):.2f}')
     plt.savefig(f'./img_file/error/{file_name}.png')
     plt.show()
