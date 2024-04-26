@@ -68,8 +68,8 @@ print(eval_hist)
 y_test = scaler.inverse_transform(y_test.reshape(-1, 1)).flatten()
 predict = scaler.inverse_transform(predict.reshape(-1, 1)).flatten()
 file_name = f'{place}_{window_step}'
-plot_forecast(y_test, predict, test.index, history, eval_hist, file_name)
-plot_error(y_test, predict, test.index, file_name)
+plot_forecast(y_test, predict, test.index, history, eval_hist, file_name, window_step)
+plot_error(y_test, predict, test.index, file_name, window_step)
 
 # saving model
 path = f'./param/lstm_w{window_step}.keras'
