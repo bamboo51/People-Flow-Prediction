@@ -14,7 +14,7 @@ def create_model(train, units, dropout=0.2):
     model = Sequential()
     model.add(LSTM(units=units, return_sequences=False,
                    input_shape=(train.shape[1], train.shape[2])))
-    model.add(Dropout(dropout))
+    # model.add(Dropout(dropout))
     model.add(Dense(1))
 
     return model
@@ -27,7 +27,7 @@ def train_model_ts(model,
     
     model.compile(optimizer='SGD',
                   loss='mean_squared_error',
-                  metrics=[RMSE(), MAE()])
+                  metrics=[MAE()])
     
     es = keras.callbacks.EarlyStopping(
                     monitor="val_loss", 
@@ -35,7 +35,7 @@ def train_model_ts(model,
                     patience=patience)
     
     history = model.fit(x_train, y_train,
-                        shuffle=False, epochs=epochs,
+                        shuffle=True, epochs=epochs,
                         batch_size=batch_size,
                         validation_data=(x_val, y_val),
                         callbacks=[es], 

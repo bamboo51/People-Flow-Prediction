@@ -16,7 +16,7 @@ args = parser.parse_args()
 # read data
 place = args.place
 print(f'training at {place}')
-path = f'../data/num_file/hrs_1_old/{place}.csv'
+path = f'../data/num_file/min_05/{place}.csv'
 data = pd.read_csv(path)
 print(f'read data...shape={data.shape}')
 
@@ -46,8 +46,8 @@ window_step = int(args.window_size)
 data = one_step_forecast(data, window_step)
 
 # split data
-train, test = train_test_split(data, test_size=0.15, shuffle=False)
-train, val = train_test_split(train, test_size=0.15, shuffle=False)
+train, test = train_test_split(data, test_size=0.2, shuffle=False)
+train, val = train_test_split(train, test_size=0.05, shuffle=False)
 x = [f'x_{i}' for i in range(1, window_step+1)]
 y = ['y']
 x_train, y_train = np.expand_dims(train[x], axis=-1), np.expand_dims(train[y], axis=-1)
